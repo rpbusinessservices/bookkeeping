@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RP Business Services — Bookkeeping</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#1E8449; --ink:#1C1C1C; --ink-soft:#5A6260;
+    --bg:#FFFFFF; --header-bg:#F6F6F4; --line:#E1E4E1;
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ink:#F0F2F0; --ink-soft:#B9C2BF; --bg:#14201A; --header-bg:#182420; --line:#2B3A33;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#F0F2F0; --ink-soft:#B9C2BF; --bg:#14201A; --header-bg:#182420; --line:#2B3A33;
+  }
+  html{scroll-padding-top:env(safe-area-inset-top,0px);}
+  *{box-sizing:border-box;}
+  body{margin:0; background:var(--bg); color:var(--ink); font-family:'Work Sans',system-ui,sans-serif;}
+  h1,h2,h3{font-family:'Playfair Display',Georgia,serif; margin:0; color:var(--ink);}
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 32px;}
+
+  header{background:var(--header-bg); border-bottom:1px solid var(--line);}
+  .headerin{display:flex; align-items:center; justify-content:space-between; padding:18px 32px; max-width:1080px; margin:0 auto;}
+  .brand{display:flex; align-items:center; gap:12px;}
+  .brand svg{flex-shrink:0;}
+  .brand-name{font-family:'Work Sans',sans-serif; font-weight:600; font-size:13px; letter-spacing:.08em; line-height:1.3;}
+  nav{display:flex; gap:30px; font-size:14px; font-weight:500;}
+
+  .hero{padding-top:74px; padding-bottom:56px; display:flex; flex-wrap:wrap; gap:28px; align-items:flex-start; justify-content:space-between;}
+  .hero-text{max-width:560px;}
+  .hero h1{font-size:clamp(28px,4.2vw,42px); font-weight:700; line-height:1.18; text-transform:uppercase;}
+  .hero p{font-size:16px; color:var(--ink-soft); margin-top:20px; line-height:1.65; max-width:48ch;}
+  .hero-btns{display:flex; flex-direction:column; gap:14px; min-width:230px;}
+  .btn{
+    display:block; text-align:center; padding:16px 28px; font-size:14px; font-weight:600;
+    letter-spacing:.05em; text-transform:uppercase; border-radius:3px;
+  }
+  .btn-solid{background:var(--green); color:#fff;}
+  .btn-outline{background:transparent; color:var(--green); border:1.5px solid var(--green);}
+  .hero-rule{height:4px; background:var(--green); border:none; margin:0;}
+
+  section{padding:56px 0;}
+  .eyebrow{font-size:12px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--ink);}
+  .section-title{font-size:30px; margin:10px 0 8px;}
+  .section-sub{color:var(--ink-soft); font-size:15px; max-width:56ch;}
+
+  .services-grid{display:grid; grid-template-columns:1.1fr 1fr; gap:22px; margin-top:34px; align-items:stretch;}
+  .services-grid > .panel-solid{display:flex; flex-direction:column; height:100%;}
+  .services-grid > .panel-solid .mini-btn{align-self:flex-start;}
+  .services-grid > div:last-child{display:flex; flex-direction:column; height:100%;}
+  .services-grid > div:last-child .panel-outline{flex:1; display:flex; flex-direction:column;}
+  .panel{padding:24px 34px; border-radius:6px;}
+  .panel-solid{background:var(--green); color:#fff;}
+  .panel-outline{border:1.5px solid var(--green); margin-bottom:22px;}
+  .panel .tag{font-size:12px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; opacity:.85;}
+  .panel h3{font-size:22px; margin:14px 0 12px; color:inherit;}
+  .panel-solid h3{color:#fff;}
+  .panel-outline h3{color:var(--ink);}
+  .panel p{font-size:14.5px; line-height:1.6; margin:0 0 14px;}
+  .panel-solid p{color:rgba(255,255,255,.92);}
+  .panel-outline p{color:var(--ink-soft);}
+  .panel ul{margin:0 0 20px; padding-left:18px; font-size:14px;}
+  .panel-solid ul{color:rgba(255,255,255,.92);}
+  .panel-outline ul{color:var(--ink-soft);}
+  .panel li{margin-bottom:6px;}
+  .panel-icon{margin-bottom:6px;}
+  .panel .mini-btn{
+    display:inline-block; padding:11px 22px; font-size:13px; font-weight:600;
+    letter-spacing:.04em; text-transform:uppercase; border-radius:3px;
+  }
+  .panel-solid .mini-btn{background:#fff; color:var(--green);}
+  .panel-outline .mini-btn{background:var(--green); color:#fff;}
+  .quote-note{font-size:13px; color:var(--ink-soft); margin-top:-6px; margin-bottom:14px;}
+
+  .pricing{background:var(--green); color:#fff; padding:64px 0;}
+  .pricing-head{display:flex; flex-wrap:wrap; justify-content:space-between; gap:20px; align-items:flex-end; margin-bottom:34px;}
+  .pricing-head .eyebrow{color:rgba(255,255,255,.85);}
+  .pricing-head h2{color:#fff; font-size:28px;}
+  .pricing-head .note{font-size:14px; color:rgba(255,255,255,.9); max-width:50ch;}
+  .price-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+  .price-card{background:#fff; border-radius:8px; padding:28px; color:var(--ink); display:flex; flex-direction:column;}
+  .price-num{display:inline-block; background:#BFE6CE; color:var(--green); font-weight:700; font-size:13px; padding:4px 12px; border-radius:4px; margin-bottom:14px;}
+  .price-card h3{font-size:22px; margin-bottom:8px; color:#12201A; font-weight:700;}
+  .price-card .desc{font-size:14px; color:#3B4240; margin-bottom:14px;}
+  .price-card .amount{font-size:26px; font-weight:700; color:var(--green); font-family:'Playfair Display',serif;}
+  .price-card .per{font-size:12.5px; color:#3B4240; margin-bottom:16px;}
+  .price-card .fit{font-size:13.5px; color:#3B4240; border-top:1px solid var(--line); padding-top:14px; margin-bottom:10px;}
+  .price-card ul{margin:0 0 20px; padding-left:16px; font-size:13.5px; color:#3B4240;}
+  .price-card li{margin-bottom:5px;}
+  .price-card .mini-btn{
+    display:block; text-align:center; margin-top:auto; background:var(--green); color:#fff;
+    padding:11px 22px; font-size:13px; font-weight:600; letter-spacing:.04em;
+    text-transform:uppercase; border-radius:3px;
+  }
+  .pricing-fineprint{font-size:13.5px; color:rgba(255,255,255,.96); max-width:80ch; margin:34px 0 26px;}
+  .pricing-lower{background:#fff; color:var(--ink); border-radius:8px; display:grid; grid-template-columns:1fr 1px 1fr; gap:0;}
+  .pricing-lower .cell{padding:22px 28px; display:flex; flex-direction:column; justify-content:flex-start;}
+  .pricing-lower .divider{background:var(--line); margin:20px 0;}
+  .pricing-lower h4{font-size:17px; margin-bottom:8px; font-family:'Playfair Display',serif; color:#12201A;}
+  .pricing-lower p{font-size:14px; color:#3B4240; margin:0;}
+  .pricing-footnote{text-align:center; font-size:12px; font-weight:600; color:rgba(255,255,255,.9); margin-top:22px;}
+
+  .work-contact{border-top:1px solid var(--line); padding:0;}
+  .work-grid{display:grid; grid-template-columns:1fr 1px 1.2fr; gap:0; align-items:stretch;}
+  .work-left{padding:56px 48px 56px 0;}
+  .work-divider{background:var(--line); margin:60px 0;}
+  .work-right{padding:56px 0 56px 48px;}
+  .work-left h2{font-size:30px; margin:10px 0 16px;}
+  .work-left p{color:var(--ink-soft); font-size:15px; line-height:1.65; max-width:42ch; margin-bottom:24px;}
+  .work-email-row{display:flex; align-items:center; gap:12px; margin-bottom:0;}
+  .work-email-text{font-size:15px;}
+  .mail-circle{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:38px; height:38px; border-radius:50%; border:1.5px solid var(--green); flex-shrink:0;
+  }
+  .form-group{margin-bottom:20px;}
+  .form-row{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+  .form-label{font-size:14px; margin-bottom:7px; display:block; font-weight:500;}
+  .form-input, .form-select, .form-textarea{
+    width:100%; border:1px solid var(--line); border-radius:5px; background:#fff;
+    padding:11px 13px; font-size:14px; font-family:inherit; color:var(--ink); outline:none;
+  }
+  .form-select{
+    appearance:auto; -webkit-appearance:auto;
+    width:100%;
+    min-height:44px;
+    background:#FFFFFF;
+    color:#1C1C1C;
+    border:1px solid #B8BFBC;
+    font-size:15px;
+    font-weight:500;
+    line-height:1.35;
+    cursor:pointer;
+  }
+  .form-select option{
+    color:#1C1C1C;
+    background:#FFFFFF;
+    font-size:15px;
+    font-weight:500;
+  }
+  .form-select:invalid,
+  .form-select option[value=""]{
+    color:#5A6260;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus{border-color:var(--green);}
+  .form-textarea{resize:vertical; min-height:90px;}
+  .form-disclaimer{font-size:12.5px; color:var(--ink-soft); line-height:1.5; margin:4px 0 18px;}
+  .submit-btn{
+    display:inline-flex; align-items:center; gap:8px;
+    background:#123626; color:#fff; border:none; padding:14px 26px; font-size:14px;
+    font-weight:600; letter-spacing:.02em; border-radius:5px; cursor:pointer; font-family:inherit;
+  }
+
+  @media (max-width:760px){
+    .work-grid{grid-template-columns:1fr;}
+    .work-divider{display:none;}
+    .work-left, .work-right{padding:36px 0;}
+  }
+
+  footer{padding:28px 32px; text-align:center; font-size:13px; color:var(--ink-soft); border-top:1px solid var(--line);}
+
+  @media (max-width:760px){
+    .services-grid{grid-template-columns:1fr;}
+    nav{display:none;}
+    .hero{flex-direction:column;}
+    .price-grid{grid-template-columns:1fr;}
+    .pricing-lower{grid-template-columns:1fr;}
+    .pricing-lower .divider{display:none;}
+  }
+</style>
+
+<!--
+  FORM SETUP:
+  The quote form submits to FormSubmit using rpbusinessservices@gmail.com.
+  The first submission may require confirming the email address with FormSubmit.
+-->
+</head>
+<body>
+
+<header>
+  <div class="headerin">
+    <div class="brand">
+      <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="21" cy="21" r="19.5" stroke="var(--green)" stroke-width="1.3"/>
+        <circle cx="21" cy="21" r="15.5" stroke="var(--green)" stroke-width="0.8"/>
+        <line x1="12" y1="21" x2="30" y2="21" stroke="var(--green)" stroke-width="1"/>
+        <text x="21" y="18" text-anchor="middle" font-family="Playfair Display, serif" font-size="10" fill="var(--green)" font-weight="600">R</text>
+        <text x="21" y="30" text-anchor="middle" font-family="Playfair Display, serif" font-size="10" fill="var(--green)" font-weight="600">P</text>
+      </svg>
+      <div class="brand-name">RP BUSINESS<br>SERVICES</div>
+    </div>
+    <nav>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap hero">
+  <div class="hero-text">
+    <h1>Bookkeeping for your business done right</h1>
+    <p>Messy books kill clarity. I keep your QuickBooks clean, your financials accurate, and your stress level low — with real communication from someone who actually responds.</p>
+  </div>
+  <div class="hero-btns">
+    <a class="btn btn-solid" href="#services">Services</a>
+    <a class="btn btn-outline" href="#contact">Request a quote</a>
+  </div>
+</div>
+<hr class="hero-rule">
+
+<div class="wrap">
+<section id="services">
+  <div class="eyebrow">QuickBooks Online Services</div>
+  <h2 class="section-title">How I Can Help</h2>
+  <p class="section-sub">Ongoing support, a fresh start, or help getting more comfortable with QuickBooks.</p>
+
+  <div class="services-grid">
+    <div class="panel panel-solid">
+      <svg class="panel-icon" width="34" height="34" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="18" stroke="#fff" stroke-width="1.4"/>
+        <rect x="12" y="10" width="16" height="20" rx="1.2" stroke="#fff" stroke-width="1.5"/>
+        <line x1="15.5" y1="15.5" x2="24.5" y2="15.5" stroke="#fff" stroke-width="1.3"/>
+        <line x1="15.5" y1="19.5" x2="24.5" y2="19.5" stroke="#fff" stroke-width="1.3"/>
+        <line x1="15.5" y1="23.5" x2="24.5" y2="23.5" stroke="#fff" stroke-width="1.3"/>
+      </svg>
+      <div class="tag">Ongoing Support</div>
+      <h3>Monthly Bookkeeping</h3>
+      <p>A clear picture of your business, month after month. I keep your QuickBooks organized and your accounts reconciled, so you have reliable numbers to work with.</p>
+      <ul>
+        <li>Monthly bank and credit card reconciliation</li>
+        <li>Transaction categorization and balance sheet review</li>
+        <li>Monthly financial statements and answers to your questions</li>
+      </ul>
+      <a class="mini-btn" href="#contact">Request a quote</a>
+    </div>
+
+    <div>
+      <div class="panel panel-outline">
+        <svg class="panel-icon" width="30" height="30" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="20" cy="20" r="18" stroke="var(--green)" stroke-width="1.4"/>
+          <path d="M29 20a9 9 0 1 1-2.6-6.3" stroke="var(--green)" stroke-width="1.7" stroke-linecap="round"/>
+          <path d="M29 9v6h-6" stroke="var(--green)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="tag" style="color:var(--green)">A Fresh Start</div>
+        <h3>Cleanup &amp; Catch-up</h3>
+        <p>Behind on your books or unsure the numbers are right? I'll review what needs attention and get your records back on track.</p>
+        <ul>
+          <li>Catch up missing months and reconcile accounts</li>
+          <li>Resolve errors and prepare books for your CPA</li>
+        </ul>
+        <div class="quote-note">Quoted separately after a review of your books.</div>
+      </div>
+
+      <div class="panel panel-outline" style="margin-bottom:0;">
+        <svg class="panel-icon" width="30" height="30" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="20" cy="20" r="18" stroke="var(--green)" stroke-width="1.4"/>
+          <circle cx="20" cy="20" r="6" stroke="var(--green)" stroke-width="1.7"/>
+          <path d="M20 8v4M20 28v4M32 20h-4M12 20H8M28.3 11.7l-2.8 2.8M14.5 25.5l-2.8 2.8M28.3 28.3l-2.8-2.8M14.5 14.5l-2.8-2.8" stroke="var(--green)" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <div class="tag" style="color:var(--green)">Practical Guidance</div>
+        <h3>QuickBooks Consulting</h3>
+        <p>Want to handle the books in-house? Get help setting up QuickBooks, improving your process, and understanding what to do next.</p>
+        <ul>
+          <li>Talk about what you need</li>
+          <li>Personalized setup and training</li>
+          <li>Workflow guidance and a review of your books</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<section id="pricing" class="pricing">
+  <div class="wrap">
+    <div class="pricing-head">
+      <div>
+        <div class="eyebrow">Monthly Bookkeeping</div>
+        <h2>Pricing based on your books.</h2>
+      </div>
+      <div class="note">These ranges give you an idea of what to expect. I'll review your QuickBooks account and provide a quote based on your transaction volume and complexity.</div>
+    </div>
+
+    <div class="price-grid">
+      <div class="price-card">
+        <span class="price-num">01</span>
+        <h3>Simple</h3>
+        <div class="desc">Straightforward books with fewer moving parts.</div>
+        <div class="amount">Around $250</div>
+        <div class="per">per month</div>
+        <div class="fit">Often a fit for businesses under $500k in annual revenue.</div>
+        <ul>
+          <li>Lower transaction volume and fewer bank or credit card accounts</li>
+          <li>Business and personal spending clearly separated</li>
+          <li>Little need for integrations or additional tracking</li>
+        </ul>
+        <a class="mini-btn" href="#contact">Request a quote</a>
+      </div>
+      <div class="price-card">
+        <span class="price-num">02</span>
+        <h3>Moderate</h3>
+        <div class="desc">More activity and a few additional details.</div>
+        <div class="amount">$300–400</div>
+        <div class="per">per month</div>
+        <div class="fit">Often a fit for businesses with $500k to $1 million in annual revenue.</div>
+        <ul>
+          <li>Moderate transaction volume across several accounts</li>
+          <li>Payroll entries, loans, or payment integrations to reconcile</li>
+          <li>Some additional tracking or account balances to review</li>
+        </ul>
+        <a class="mini-btn" href="#contact">Request a quote</a>
+      </div>
+      <div class="price-card">
+        <span class="price-num">03</span>
+        <h3>Complex</h3>
+        <div class="desc">More accounts, more activity, more to reconcile.</div>
+        <div class="amount">$400–750</div>
+        <div class="per">per month</div>
+        <div class="fit">Often a fit for businesses with $1 million to $2 million in annual revenue.</div>
+        <ul>
+          <li>Higher transaction volume or multiple payment and sales channels</li>
+          <li>Class or project tracking, cash activity, or more involved integrations</li>
+          <li>More accounts receivable or accounts payable activity to review</li>
+        </ul>
+        <a class="mini-btn" href="#contact">Request a quote</a>
+      </div>
+    </div>
+
+    <p class="pricing-fineprint">These are guidelines, not packages to choose from. Revenue is one reference point, not a pricing rule. I determine your monthly fee after reviewing the books, and your quote may fall outside these ranges.</p>
+
+    <div class="pricing-lower">
+      <div class="cell">
+        <h4>Need cleanup bookkeeping first?</h4>
+        <p>I'll review your books and quote the cleanup separately.</p>
+      </div>
+      <div class="divider"></div>
+      <div class="cell">
+        <h4>Not ready for monthly bookkeeping?</h4>
+        <p>Quarterly bookkeeping is available at 75% of your quoted monthly rate, billed monthly.</p>
+      </div>
+    </div>
+
+    <div class="pricing-footnote">No contracts. Cancel anytime. 100% satisfaction in your first month or pay nothing.</div>
+  </div>
+</section>
+
+<section id="contact" class="work-contact">
+  <div class="wrap">
+    <div class="work-grid">
+      <div class="work-left">
+        <div class="eyebrow">Work With Me</div>
+        <h2>Tell me about your business.</h2>
+        <p>Whether you're looking for ongoing support or need to get your books caught up, I'd like to learn more about your business and what you need help with. We can start with a quote or a short conversation.</p>
+        <div class="work-email-row">
+          <a class="mail-circle" href="mailto:rpbusinessservices@gmail.com?subject=Bookkeeping%20inquiry" aria-label="Email RP Business Services">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2.5" y="5" width="19" height="14" rx="1.5" stroke="var(--green)" stroke-width="1.6"/>
+              <path d="M3 6l9 7 9-7" stroke="var(--green)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <a class="work-email-text" href="mailto:rpbusinessservices@gmail.com?subject=Bookkeeping%20inquiry">rpbusinessservices@gmail.com</a>
+        </div>
+      </div>
+      <div class="work-divider"></div>
+      <div class="work-right">
+        <h3 style="font-size:22px; margin-bottom:6px;">Request a quote</h3>
+        <p style="color:var(--ink-soft); font-size:14px; margin:0 0 22px;">Tell me about your business so I can put together a quote.</p>
+        <form id="rpForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="fname">Your name</label>
+              <input class="form-input" type="text" id="fname" autocomplete="name" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="femail">Email address</label>
+              <input class="form-input" type="email" id="femail" autocomplete="email" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="fbusiness">Business name</label>
+              <input class="form-input" type="text" id="fbusiness" autocomplete="organization">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="fphone">Phone (optional)</label>
+              <input class="form-input" type="tel" id="fphone" autocomplete="tel">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="frevenue">Annual revenue</label>
+              <select class="form-select" id="frevenue" required>
+                <option value="">Select a range</option>
+                <option>Under $500k</option>
+                <option>$500k – $1 million</option>
+                <option>$1 million – $2 million</option>
+                <option>Over $2 million</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="fqbo">Do you use QuickBooks Online?</label>
+              <select class="form-select" id="fqbo" required>
+                <option value="">Select an option</option>
+                <option>Yes</option>
+                <option>No</option>
+                <option>Not sure</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="fservice">What do you need help with?</label>
+            <select class="form-select" id="fservice" required>
+              <option value="">Select a service</option>
+              <option>Monthly bookkeeping</option>
+              <option>Cleanup &amp; catch-up</option>
+              <option>QuickBooks consulting</option>
+              <option>Not sure yet</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="fmessage">What should I know about your books?</label>
+            <textarea class="form-textarea" id="fmessage" placeholder="Your industry, how far behind the books are, and what you need help with."></textarea>
+          </div>
+          <p class="form-disclaimer">Your information will be sent directly to my email. Please don't include passwords or account numbers.</p>
+          <button type="submit" class="submit-btn">Send quote request <span>&rarr;</span></button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 RP Business Services. All rights reserved. <span aria-hidden="true">·</span> <a href="mailto:rpbusinessservices@gmail.com">Contact</a></footer>
+
+<script>
+  document.getElementById('rpForm').addEventListener('submit', async function(e){
+    e.preventDefault();
+
+    var form = e.currentTarget;
+    var button = form.querySelector('.submit-btn');
+    var originalButtonText = button.innerHTML;
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    button.disabled = true;
+    button.innerHTML = 'Sending...';
+
+    var data = {
+      name: document.getElementById('fname').value.trim(),
+      email: document.getElementById('femail').value.trim(),
+      business: document.getElementById('fbusiness').value.trim(),
+      phone: document.getElementById('fphone').value.trim(),
+      annual_revenue: document.getElementById('frevenue').value,
+      quickbooks_online: document.getElementById('fqbo').value,
+      service_needed: document.getElementById('fservice').value,
+      message: document.getElementById('fmessage').value.trim(),
+      _subject: 'New bookkeeping quote request — RP Business Services',
+      _captcha: 'false'
+    };
+
+    try {
+      var response = await fetch('https://formsubmit.co/ajax/rpbusinessservices@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+
+      if (!response.ok) throw new Error('Form submission failed');
+
+      form.innerHTML = '<div style="padding:28px 0;"><h3 style="font-size:24px; margin-bottom:10px;">Thank you!</h3><p style="color:var(--ink-soft); font-size:15px; line-height:1.6;">Your quote request has been sent. I’ll review your information and get back to you soon.</p></div>';
+    } catch (error) {
+      button.disabled = false;
+      button.innerHTML = originalButtonText;
+      alert('Sorry, the form could not be sent right now. Please email rpbusinessservices@gmail.com directly.');
+    }
+  });
+</script>
+
+</body>
+</html>
